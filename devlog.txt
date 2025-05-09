@@ -1,0 +1,15 @@
+FORMAT:
+firstL -- TIMESTAMP\n (e.g.: dannyM -- 2000-01-01 00:00)
+
+dannyM -- Prior to 2025-05-08 21:54
+* Repo creation
+* Design document creation
+* Design document content
+* Design document revision
+* Added required files
+
+dannyM -- 2025-05-08 22:06
+* Updated root readme
+
+dannyM -- 2025-05-08 23:39
+* Working app
