@@ -13,3 +13,6 @@ dannyM -- 2025-05-08 22:06
 
 dannyM -- 2025-05-08 23:39
 * Working app
+
+dannyM -- 2025-05-12 10:40
+* Added and started work on database javascript file
