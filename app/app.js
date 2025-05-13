@@ -1,5 +1,5 @@
 //temporary code
-const http = require('http');
+/*const http = require('http');
 
 const hostname = 'localhost';
 const port = 3000;
@@ -12,15 +12,17 @@ const server = http.createServer((req, res) => {
 
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
-});
+});*/
 
-/*
 const express = require('express');
 const app = express();
 const port = 3000
 
 app.get('/',(req,res) => {
   res.send('Hello World!');
+})
+
+app.all('/game',(req,res) => {
 })
 
 app.listen(port, () => {
@@ -30,6 +32,8 @@ app.listen(port, () => {
 function getBeats(){
   var song = 'Mortals.mp3';
 
+  //Use HTMLMediaElement currentTime
+
   const spawn = require("child_process").spawn;
   const pythonProcess = spawn('python',["beats.py", song]);
 
@@ -38,5 +42,5 @@ function getBeats(){
   });
 }
 
+
 getBeats();
-*/
