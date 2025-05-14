@@ -1,20 +1,19 @@
+var canvas = document.getElementById("game");
+var ctx = canvas.getContext("2d");
 function game(){
-  var canvas = document.getElementById("game");
-  var ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth/2;
   canvas.height = window.innerHeight/2;
-
+  drawLanes();
 }
 
 function drawLanes(){
-  ctx.fillStyle = "green";
-  ctx.fillRect(0,0,canvas.width/4,canvas.height);
-  ctx.fillStyle = "red";
-  ctx.fillRect(0,0,canvas.width/4,canvas.height);
-  ctx.fillStyle = "yellow";
-  ctx.fillRect(0,0,canvas.width/4,canvas.height);
-  ctx.fillStyle = "blue";
-  ctx.fillRect(0,0,canvas.width/4,canvas.height);
+  ctx.strokeStyle = 'black';
+  for(i = 1; i < 4; i ++){
+    ctx.beginPath();
+    ctx.moveTo(i*canvas.width/4,0);
+    ctx.lineTo(i*canvas.width/4,canvas.height);
+    ctx.stroke();
+  }
 }
 
 game();

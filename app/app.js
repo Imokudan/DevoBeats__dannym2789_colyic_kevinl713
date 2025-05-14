@@ -16,13 +16,16 @@ server.listen(port, hostname, () => {
 
 const express = require('express');
 const app = express();
+app.set('view engine', 'pug');
 const port = 3000
 
 app.get('/',(req,res) => {
-  res.send('Hello World!');
+  res.render('home', { title: 'Hey', message: 'Hello there! This is made with pug and express' });
 })
 
+//app.all uses both get and post methods
 app.all('/game',(req,res) => {
+  res.render('game', { title: 'game'});
 })
 
 app.listen(port, () => {
@@ -41,6 +44,3 @@ function getBeats(){
     console.log(data.toString());
   });
 }
-
-
-getBeats();
