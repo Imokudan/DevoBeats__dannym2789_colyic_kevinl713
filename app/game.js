@@ -1,3 +1,5 @@
+import {result} from './app.mjs';
+
 var canvas = document.getElementById("game");
 var ctx = canvas.getContext("2d");
 function game(){
@@ -15,5 +17,4 @@ function drawLanes(){
     ctx.stroke();
   }
 }
-
 game();
