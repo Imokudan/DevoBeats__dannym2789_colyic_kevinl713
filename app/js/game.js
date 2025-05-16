@@ -1,5 +1,6 @@
 var canvas = document.getElementById("game");
 var ctx = canvas.getContext("2d");
+var song = document.getElementById("song");
 let beats = [];
 
 fetch('/api/beats')
@@ -16,6 +17,10 @@ function game(){
   canvas.width = window.innerWidth/2;
   canvas.height = window.innerHeight/2;
   drawLanes();
+  console.log(song.currentTime);
+  ctx.beginPath();
+  ctx.rect(0,0,canvas.width/4,canvas.height/8);
+  ctx.fill();
 }
 
 function drawLanes(){

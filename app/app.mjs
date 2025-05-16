@@ -22,6 +22,7 @@ const port = 3000;
 let result = [];
 
 app.use('/js', express.static('js'));
+app.use('/audioFiles', express.static('audioFiles'));
 
 app.get('/', (req, res) => {
   res.render('home', { title: 'Hey', message: 'Hello there! This is made with pug and express' });
@@ -43,7 +44,7 @@ app.listen(port, () => {
 
 function getBeats() {
   return new Promise((resolve, reject) => {
-    let song = 'Mortals.mp3';
+    let song = 'audioFiles/Mortals.mp3';
     let beats = [];
     const pythonProcess = spawn('python3', ['beats.py', song]);
     pythonProcess.stdout.on('data', data => {
