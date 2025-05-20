@@ -3,6 +3,7 @@ var ctx = canvas.getContext("2d");
 var song = document.getElementById("song");
 var beats = [];
 
+//Get Beats Array functions
 function getBeats(){
   fetch('/api/beats')
     .then(response => response.json())
@@ -13,28 +14,6 @@ function getBeats(){
     .catch(err => {
       console.error('Error fetching beats:', err);
     });
-}
-
-function game(){
-  getBeats();
-  canvas.width = window.innerWidth/2;
-  canvas.height = window.innerHeight/2;
-  drawLanes();
-  drawRects();
-  animate();
-}
-
-function drawLanes(){
-  ctx.strokeStyle = 'black';
-  ctx.beginPath();
-  ctx.rect(0,canvas.height-100,canvas.width,canvas.height/8);
-  ctx.fill();
-  for(i = 1; i < 4; i ++){
-    ctx.beginPath();
-    ctx.moveTo(i*canvas.width/4,0);
-    ctx.lineTo(i*canvas.width/4,canvas.height);
-    ctx.stroke();
-  }
 }
 
 function beat(lane,beat){
@@ -55,6 +34,27 @@ function setLanes(arr){
   return array;
 }
 
+//Animation Functions
+function animate(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawLanes();
+  drawRects();
+  requestAnimationFrame(animate);
+}
+
+function drawLanes(){
+  ctx.strokeStyle = 'black';
+  ctx.beginPath();
+  ctx.rect(0,canvas.height-100,canvas.width,canvas.height/8);
+  ctx.fill();
+  for(i = 1; i < 4; i ++){
+    ctx.beginPath();
+    ctx.moveTo(i*canvas.width/4,0);
+    ctx.lineTo(i*canvas.width/4,canvas.height);
+    ctx.stroke();
+  }
+}
+
 function drawRects(){
   ctx.beginPath();
   for(i = 0; i < beats.length; i++){
@@ -65,11 +65,38 @@ function drawRects(){
   ctx.fill();
 }
 
-function animate(){
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+//Gameplay Functions
+function keyPress(event){
+  if(event.key == "a"){
+    for(i = 0; i < beats.length; i ++){
+      
+    }
+  }
+  if(event.key == "s"){
+    for(i = 0; i < beats.length; i ++){
+
+    }
+  }
+  if(event.key == "d"){
+    for(i = 0; i < beats.length; i ++){
+
+    }
+  }
+  if(event.key == "f"){
+    for(i = 0; i < beats.length; i ++){
+
+    }
+  }
+}
+
+//Main Function
+function game(){
+  getBeats();
+  canvas.width = window.innerWidth/2;
+  canvas.height = window.innerHeight;
   drawLanes();
   drawRects();
-  requestAnimationFrame(animate);
+  animate();
 }
 
 game();
