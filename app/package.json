@@ -3,5 +3,9 @@
     "child_process": "^1.0.2",
     "express": "^5.1.0",
     "pug": "^3.0.3"
+  },
+
+  "scripts": {
+    "build": "postcss styles.css -o styles.css"
   }
 }

@@ -16,3 +16,6 @@ dannyM -- 2025-05-08 23:39
 
 dannyM -- 2025-05-12 10:40
 * Added and started work on database javascript file
+
+colyiC -- 2025-05-16 10:57
+* Set up tailwind css, html files
