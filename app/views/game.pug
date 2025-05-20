@@ -3,5 +3,7 @@ html
   head
     title= title
   body
+    audio(controls='',id='song')
+      source(src='/audioFiles/Mortals.mp3',type='audio/mp3')
     canvas(id='game', width='500', height='500', style='border:1px solid #000000;')
     script(src="/js/game.js")
