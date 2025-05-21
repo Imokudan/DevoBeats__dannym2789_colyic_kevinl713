@@ -10,5 +10,5 @@ tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
 beat_times = librosa.frames_to_time(beat_frames, sr=sr)
 
 for beat in beat_times:
-    print(int(beat))
+    print(beat)
 sys.stdout.flush()

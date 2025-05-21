@@ -44,7 +44,7 @@ app.listen(port, () => {
 
 function getBeats() {
   return new Promise((resolve, reject) => {
-    let song = 'audioFiles/Mortals.mp3';
+    let song = 'audioFiles/Royalty.mp3';
     let beats = [];
     const pythonProcess = spawn('python3', ['beats.py', song]);
     pythonProcess.stdout.on('data', data => {

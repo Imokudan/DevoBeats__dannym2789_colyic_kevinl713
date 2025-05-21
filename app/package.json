@@ -4,5 +4,9 @@
     "express": "^5.1.0",
     "pug": "^3.0.3",
     "sqlite3": "^5.1.7"
+  },
+
+  "scripts": {
+    "build": "postcss styles.css -o styles.css"
   }
 }
