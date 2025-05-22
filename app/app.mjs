@@ -9,7 +9,7 @@ app.use('/js', express.static('js'));
 app.use('/audioFiles', express.static('audioFiles'));
 
 app.get('/', (req, res) => {
-  res.render('home', { title: 'Hey', message: 'Hello there! This is made with pug and express' });
+  res.sendFile(path.join(__dirname, '/public/home.html'))
 });
 
 app.get('/game', (req, res) => {
