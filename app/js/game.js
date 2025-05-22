@@ -8,6 +8,7 @@ var lane3 = [];
 var lane4 = [];
 var points = 0;
 var animationId;
+var rectHeight = canvas.height/8;
 
 //Get Beats Array functions
 function getBeats(){
@@ -17,6 +18,7 @@ function getBeats(){
       console.log('Beats data:', data);
       beats = setLanes(data);
       let temp = singleLanes(beats);
+      console.log(temp);
       lane1 = temp[0];
       lane2 = temp[1];
       lane3 = temp[2];
@@ -30,6 +32,7 @@ function getBeats(){
 function beat(lane,beat){
   this.lane = lane;
   this.beat = beat;
+  this.clicked = false;
 }
 
 function setLanes(arr){
@@ -51,7 +54,7 @@ function singleLanes(arr){
   let arr3 = [];
   let arr4 = [];
   for(i = 0;i < arr.length;i++){
-    switch (arr[i].laneNum){
+    switch (arr[i].lane){
       case 0:
         arr1.push(arr[i]);
         break;
@@ -72,6 +75,7 @@ function singleLanes(arr){
 //Animation Functions
 function animate(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  console.log(points);
   drawLanes();
   drawRects();
   animationId = requestAnimationFrame(animate);
@@ -83,6 +87,10 @@ function drawLanes(){
     ctx.beginPath();
     ctx.moveTo(i*canvas.width/4,0);
     ctx.lineTo(i*canvas.width/4,canvas.height);
+    ctx.moveTo(0,canvas.height-100);
+    ctx.lineTo(canvas.width,canvas.height-100);
+    ctx.moveTo(0,canvas.height-100+rectHeight);
+    ctx.lineTo(canvas.width,canvas.height-100+rectHeight);
     ctx.stroke();
   }
 }
@@ -92,7 +100,7 @@ function drawRects(){
   ctx.fillStyle = "black";
   for(i = 0; i < beats.length; i++){
     if(beats[i].beat-song.currentTime<= 5 && beats[i].beat-song.currentTime>-1){
-      ctx.rect(beats[i].lane*canvas.width/4,canvas.height*(1-(beats[i].beat-song.currentTime)/3),canvas.width/4,canvas.height/8);
+      ctx.rect(beats[i].lane*canvas.width/4,canvas.height*(1-(beats[i].beat-song.currentTime)/3),canvas.width/4,rectHeight);
     }
   }
   ctx.fill();
@@ -101,22 +109,20 @@ function drawRects(){
 //Gameplay Functions
 function keyPress(event){
   if(event.key == "a"){
+    console.log("a");
     checkCollision(lane1);
   }
   if(event.key == "s"){
-    ctx.beginPath();
-    ctx.rect(canvas.width/4,canvas.height-100,canvas.width/4,canvas.height/8);
-    ctx.fill();
+    console.log("s");
+    checkCollision(lane2);
   }
   if(event.key == "d"){
-    ctx.beginPath();
-    ctx.rect(canvas.width/2,canvas.height-100,canvas.width/4,canvas.height/8);
-    ctx.fill();
+    console.log("d");
+    checkCollision(lane3);
   }
   if(event.key == "f"){
-    ctx.beginPath();
-    ctx.rect(3*canvas.width/4,canvas.height-100,canvas.width/4,canvas.height/8);
-    ctx.fill();
+    console.log("f");
+    checkCollision(lane4);
   }
 }
 
@@ -124,10 +130,12 @@ function checkCollision(lane){
   let hit = false;
   let height = 0;
   for(i = 0; i < lane.length; i ++){
-    height = canvas.height*(1-(beats[i].beat-song.currentTime)/3);
-    if(canvas.height-100-height <= 0){
+    height = canvas.height*(1-(lane[i].beat-song.currentTime)/3);
+    if(canvas.height-100-height <= rectHeight && canvas.height-100-height >= -rectHeight && lane[i].clicked == false){
+      lane[i].clicked = true;
       points += 1;
       hit = true;
+      console.log(lane[i]);
     }
   }
   if(hit == false){
