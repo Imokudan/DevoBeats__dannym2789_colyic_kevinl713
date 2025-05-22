@@ -5,8 +5,16 @@
     "pug": "^3.0.3",
     "sqlite3": "^5.1.7"
   },
-
   "scripts": {
     "build": "postcss styles.css -o styles.css"
-  }
+  },
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
 }

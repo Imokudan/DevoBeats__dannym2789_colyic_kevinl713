@@ -5,6 +5,13 @@ app.set('view engine', 'pug');
 const port = 3000;
 let result = [];
 
+import path from 'path';
+import {fileURLToPath} from 'url';
+import {dirname} from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.use('/js', express.static('js'));
 app.use('/audioFiles', express.static('audioFiles'));
 
