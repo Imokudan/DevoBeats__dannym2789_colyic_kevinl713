@@ -1,6 +1,7 @@
 var canvas = document.getElementById("game");
 var ctx = canvas.getContext("2d");
 var song = document.getElementById("song");
+var score = document.getElementById("points");
 var beats = [];
 var lane1 = [];
 var lane2 = [];

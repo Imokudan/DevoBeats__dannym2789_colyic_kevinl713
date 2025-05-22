@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/game', (req, res) => {
-  res.render('game', { title: 'game' });
+  res.render('game', { title: 'game', song: 'Song: Royalty' });
 });
 
 app.get('/api/beats', (req, res) => {
