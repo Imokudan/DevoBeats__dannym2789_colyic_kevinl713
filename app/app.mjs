@@ -1,5 +1,6 @@
 import express from 'express';
 import {spawn} from 'node:child_process';
+import fs from 'fs';
 const app = express();
 app.set('view engine', 'pug');
 const port = 3000;
@@ -16,8 +17,13 @@ app.use('/js', express.static('js'));
 app.use('/audioFiles', express.static('audioFiles'));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/home.html'))
+  res.sendFile(path.join(__dirname, '/public/home.html'));
 });
+
+app.get('/songs', (req,res) => {
+  res.send();
+  res.sendFile(path.join(__dirname, '/public/selection.html'));
+})
 
 app.get('/game', (req, res) => {
   res.render('game', { title: 'game', song: 'Song: Royalty' });

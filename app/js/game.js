@@ -1,5 +1,7 @@
 var canvas = document.getElementById("game");
 var ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth/2;
+canvas.height = window.innerHeight*3/4;
 var song = document.getElementById("song");
 var score = document.getElementById("points");
 var beats = [];
@@ -19,7 +21,6 @@ function getBeats(){
       console.log('Beats data:', data);
       beats = setLanes(data);
       let temp = singleLanes(beats);
-      console.log(temp);
       lane1 = temp[0];
       lane2 = temp[1];
       lane3 = temp[2];
@@ -98,31 +99,31 @@ function drawLanes(){
 
 function drawRects(){
   ctx.beginPath();
-  ctx.fillStyle = "black";
   for(i = 0; i < beats.length; i++){
     if(beats[i].beat-song.currentTime<= 5 && beats[i].beat-song.currentTime>-1){
-      ctx.rect(beats[i].lane*canvas.width/4,canvas.height*(1-(beats[i].beat-song.currentTime)/3),canvas.width/4,rectHeight);
+      if(beats[i].clicked){
+        ctx.fillStyle = "gray";
+      }
+      else{
+        ctx.fillStyle = "black";
+      }
+      ctx.fillRect(beats[i].lane*canvas.width/4,canvas.height*(1-(beats[i].beat-song.currentTime)/3),canvas.width/4,rectHeight);
     }
   }
-  ctx.fill();
 }
 
 //Gameplay Functions
 function keyPress(event){
   if(event.key == "a"){
-    console.log("a");
     checkCollision(lane1);
   }
   if(event.key == "s"){
-    console.log("s");
     checkCollision(lane2);
   }
   if(event.key == "d"){
-    console.log("d");
     checkCollision(lane3);
   }
   if(event.key == "f"){
-    console.log("f");
     checkCollision(lane4);
   }
 }
@@ -136,7 +137,7 @@ function checkCollision(lane){
       lane[i].clicked = true;
       points += 1;
       hit = true;
-      console.log(lane[i]);
+      score.innerHTML = "Points: "+points;
     }
   }
   if(hit == false){
@@ -151,8 +152,6 @@ function end(){
 //Main Function
 function game(){
   getBeats();
-  canvas.width = window.innerWidth/2;
-  canvas.height = window.innerHeight;
   document.addEventListener("keydown", keyPress);
   drawLanes();
   drawRects();
