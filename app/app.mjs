@@ -13,6 +13,8 @@ import {dirname} from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+var song = 'audioFiles/Royalty.mp3';
+
 app.use('/js', express.static('js'));
 app.use('/audioFiles', express.static('audioFiles'));
 
@@ -20,9 +22,18 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/home.html'));
 });
 
+function setSong(name){
+  song = name;
+  console.log(song);
+}
+
 app.get('/songs', (req,res) => {
-  res.send();
-  res.sendFile(path.join(__dirname, '/public/selection.html'));
+  let songs = [];
+  fs.readdir('audioFiles',(err,files) => {
+    songs = files;
+    console.log(songs);
+    res.render('selection', { title: 'Songs', songs: songs, setSong: setSong });
+  });
 })
 
 app.get('/game', (req, res) => {
@@ -41,7 +52,6 @@ app.listen(port, () => {
 
 function getBeats() {
   return new Promise((resolve, reject) => {
-    let song = 'audioFiles/Royalty.mp3';
     let beats = [];
     const pythonProcess = spawn('python3', ['beats.py', song]);
     pythonProcess.stdout.on('data', data => {

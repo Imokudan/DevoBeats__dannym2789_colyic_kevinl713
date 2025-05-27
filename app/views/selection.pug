@@ -1,0 +1,9 @@
+doctype html
+html
+  head
+    title= title
+  body
+    ul
+      each song in songs
+        li
+          a(href="/game") #{song} script !{setSong(song)}
