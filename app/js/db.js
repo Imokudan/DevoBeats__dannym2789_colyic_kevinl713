@@ -5,7 +5,7 @@ const create = async () => {
   db.serialize(() => {
     db.run("DROP TABLE IF EXISTS users;");
     db.run("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE NOT NULL, password TEXT NOT NULL);");
-    db.run("CREATE TABLE IF NOT EXISTS scores (songs TEXT NOT NULL, highscore INTEGER DEFAULT 0, id INTEGER NOT NULL);");
+    db.run("CREATE TABLE IF NOT EXISTS scores (songs TEXT NOT NULL, scores INTEGER DEFAULT 0, id INTEGER NOT NULL);");
     });
     console.log("Tables ready");
   db.close();
@@ -25,7 +25,7 @@ const createUser = (name, pass) => {
       }
     });
   });
-  db.close()
+  db.close();
   return state;
 }
 
@@ -38,7 +38,7 @@ const getUser = (user) => {
       console.log("Username " + user + " obtained");
     });
   });
-  db.close()
+  db.close();
   return data;
 }
 
@@ -51,42 +51,49 @@ const getPass = (user) => {
       console.log("Password obtained for user: " + user);
     });
   });
-  db.close()
-  return data;
+  db.close();
+  return data;for (let i = 0; i < userscores.length; i++){
+        userscores.push(rows[i]);
+
 }
 
-const getUserAllScores = (username) => {
+const getUserAllScores = (usernameid) => {
   let userscores = [];
   db.serialize(() => {
-    db.all('SELECT * FROM scores WHERE id = ?', username, function(err, rows){
-      console.log("Getting high scores of user: " + username);
-      for (let i = 0; i < userscores.length; i++){
-        userscores.push(rows[i]);
+    db.all('SELECT * FROM scores WHERE id = ?', usernameid, function(err, rows){
+      console.log("Getting scores of user: " + usernameid);
+      for (let i = 0; i < rows.length; i++){
+        userscores.push(rows[i].score);
       }
       console.log("User high scores obtained");
-      console.log("User: " + username + "'s scores: " + userscores)
+      console.log("User: " + usernameid + "'s scores: " + userscores);
     });
   });
-  db.close()
+  db.close();
   return userscores;
 }
 
-const getUserSongScores = (username, song) => {
+const getUserSongScores = (usernameid, song) => {
   let data = [];
-  if (){
-    data.push(song);
-    db.serialize(() => {
-      db.run()
-    });
-    db.close;
-  }
+  db.serialize(() => {
+    if ["Sample1","Sample2"].includes(song);{
+        console.log("Getting song: " + song + "for user: " + userid);
+        db.all('SELECT * FROM scores WHERE id = ? AND songs = ?', (usernameid, song), function(err, rows){
+          for (let i = 0; i < rows.length; i++){
+            data.push((row[i].song, row[i].score));
+            console.log("Score obtained");
+          }
+        });
+    }
+  });
+  db.close();
   return data;
 }
 
-const setUserScore = (username, song, score) => {
+const setUserScore = (usernameid, song, score) => {
   let state = false;
   db.serialize(() => {
-
+    db.run("INESERT INTO scores (score)");
   });
   db.close;
   return state;
