@@ -12,6 +12,7 @@ var lane4 = [];
 var points = 0;
 var animationId;
 var rectHeight = canvas.height/8;
+var playing = false;
 
 //Get Beats Array functions
 function getBeats(){
@@ -44,7 +45,7 @@ function setLanes(arr){
     if(laneNum == 4){
       laneNum = 0;
     }
-    array[i] = new beat(laneNum,arr[i]);
+    array[i] = new beat(laneNum,arr[i]+3);
     laneNum ++;
   }
   return array;
@@ -77,7 +78,6 @@ function singleLanes(arr){
 //Animation Functions
 function animate(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  console.log(points);
   drawLanes();
   drawRects();
   animationId = requestAnimationFrame(animate);
@@ -112,19 +112,31 @@ function drawRects(){
   }
 }
 
+function startScreen(){
+  const play = document.createElement('button');
+  play.textContent = 'Play';
+  play.onclick = function () {
+    setTimeout(function () {
+      document.getElementById('song').play();
+    }, 3000);
+  }
+}
+
 //Gameplay Functions
 function keyPress(event){
-  if(event.key == "a"){
-    checkCollision(lane1);
-  }
-  if(event.key == "s"){
-    checkCollision(lane2);
-  }
-  if(event.key == "d"){
-    checkCollision(lane3);
-  }
-  if(event.key == "f"){
-    checkCollision(lane4);
+  if(playing){
+    if(event.key == "a"){
+      checkCollision(lane1);
+    }
+    if(event.key == "s"){
+      checkCollision(lane2);
+    }
+    if(event.key == "d"){
+      checkCollision(lane3);
+    }
+    if(event.key == "f"){
+      checkCollision(lane4);
+    }
   }
 }
 
@@ -145,17 +157,15 @@ function checkCollision(lane){
   }
 }
 
-function end(){
-  document.removeEventListener("keydown", keyPress);
-}
-
 //Main Function
 function game(){
-  getBeats();
   document.addEventListener("keydown", keyPress);
-  drawLanes();
-  drawRects();
-  animate();
+  if(playing){
+    getBeats();
+    drawLanes();
+    drawRects();
+    animate();
+  }
 }
 
 game();

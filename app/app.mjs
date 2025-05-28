@@ -13,31 +13,28 @@ import {dirname} from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-var song = 'audioFiles/Royalty.mp3';
+var song = 'Royalty.mp3';
 
 app.use('/js', express.static('js'));
 app.use('/audioFiles', express.static('audioFiles'));
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/home.html'));
 });
-
-function setSong(name){
-  song = name;
-  console.log(song);
-}
 
 app.get('/songs', (req,res) => {
   let songs = [];
   fs.readdir('audioFiles',(err,files) => {
     songs = files;
     console.log(songs);
-    res.render('selection', { title: 'Songs', songs: songs, setSong: setSong });
+    res.render('selection', { title: 'Songs', songs: songs});
   });
 })
 
-app.get('/game', (req, res) => {
-  res.render('game', { title: 'game', song: 'Song: Royalty' });
+app.all('/game', (req, res) => {
+  song = req.body.song;
+  res.render('game', { title: 'game', song: 'Song: '+song.replace(".mp3",""), full: 'audioFiles/' + song });
 });
 
 app.get('/api/beats', (req, res) => {
@@ -53,7 +50,7 @@ app.listen(port, () => {
 function getBeats() {
   return new Promise((resolve, reject) => {
     let beats = [];
-    const pythonProcess = spawn('python3', ['beats.py', song]);
+    const pythonProcess = spawn('python3', ['beats.py', 'audioFiles/' + song]);
     pythonProcess.stdout.on('data', data => {
       beats.push(data.toString());
     });

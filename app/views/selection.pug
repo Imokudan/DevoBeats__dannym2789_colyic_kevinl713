@@ -6,4 +6,6 @@ html
     ul
       each song in songs
         li
-          a(href="/game") #{song} script !{setSong(song)}
+          form(action="/game" method="POST")
+            input(type="hidden" name="song" value=song)
+            button(type="submit") #{song}
