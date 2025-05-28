@@ -114,12 +114,20 @@ function drawRects(){
 
 function startScreen(){
   const play = document.createElement('button');
+  ctx.beginPath();
+  ctx.fillStyle = 'gray';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
   play.textContent = 'Play';
   play.onclick = function () {
+    playing = true;
+    drawLanes();
+    drawRects();
+    animate();
     setTimeout(function () {
       document.getElementById('song').play();
     }, 3000);
   }
+  document.body.append(play);
 }
 
 //Gameplay Functions
@@ -159,13 +167,9 @@ function checkCollision(lane){
 
 //Main Function
 function game(){
+  getBeats();
+  startScreen();
   document.addEventListener("keydown", keyPress);
-  if(playing){
-    getBeats();
-    drawLanes();
-    drawRects();
-    animate();
-  }
 }
 
 game();
