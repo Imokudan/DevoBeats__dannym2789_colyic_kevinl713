@@ -40,13 +40,14 @@ function beat(lane,beat){
 
 function setLanes(arr){
   let laneNum = 0;
+  let last = 0;
   let array = [];
   for (i = 0; i < arr.length; i ++){
-    if(laneNum == 4){
-      laneNum = 0;
+    while(laneNum == last){
+      laneNum = Math.round((Math.random()*4));
     }
     array[i] = new beat(laneNum,arr[i]+3);
-    laneNum ++;
+    last = laneNum;
   }
   return array;
 }

@@ -8,4 +8,4 @@ html
         li
           form(action="/game" method="POST")
             input(type="hidden" name="song" value=song)
-            button(type="submit") #{song}
+            button(type="submit") #{song.replace(".mp3","")}
