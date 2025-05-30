@@ -57,13 +57,6 @@ function getBeats() {
     pythonProcess.on('exit', code => {
       const arr = beats[0].replace(/^"|"$/g, '').split('\n').filter(Boolean).map(Number);
       result = arr;
-      fs.writeFile('log.txt', result.join(), (err) => {
-        if (err) {
-          console.error('Error writing to file:', err);
-        } else {
-          console.log('Data has been written to the file successfully!');
-        }
-      });
       resolve(arr);
     });
     pythonProcess.on('error', err => {
