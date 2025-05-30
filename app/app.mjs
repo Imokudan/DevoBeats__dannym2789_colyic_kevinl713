@@ -57,6 +57,7 @@ function getBeats() {
     pythonProcess.on('exit', code => {
       const arr = beats[0].replace(/^"|"$/g, '').split('\n').filter(Boolean).map(Number);
       result = arr;
+      console.log(result);
       resolve(arr);
     });
     pythonProcess.on('error', err => {

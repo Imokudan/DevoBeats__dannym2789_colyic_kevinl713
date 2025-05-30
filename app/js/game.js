@@ -28,9 +28,6 @@ function getBeats(){
       lane4 = temp[3];
     })
     .catch(err => {
-      console.log(response);
-      console.log(data);
-      console.log(response.json());
       console.error('Error fetching beats:', err);
     });
 }
