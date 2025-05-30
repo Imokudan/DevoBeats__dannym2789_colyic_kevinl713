@@ -2,12 +2,20 @@ doctype html
 html
   head
     title= title
+    style.
+      #canvas-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
   body
     a(href="/") Home
     h1= song
-    h2(id='points')= "Points: 0"
+    h2(id='points')= "Score: 0"
+    h2(id='highscore')= "Highscore: 0"
     audio(controls='',id='song',hidden)
       source(src=full,type='audio/mp3')
-    div(style="margin: auto")
+    div(id='canvas-container')
       canvas(id='game', width=1/2, height=1/2, style='border:1px solid #000000;')
     script(src="/js/game.js")

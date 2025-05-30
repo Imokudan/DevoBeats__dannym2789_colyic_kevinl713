@@ -119,8 +119,16 @@ function startScreen(){
   ctx.fillStyle = 'gray';
   ctx.fillRect(0,0,canvas.width,canvas.height);
   play.textContent = 'Play';
+  play.style.position = 'absolute';
+  play.style.top = canvas.offsetTop + canvas.height/2 - 25 + 'px';
+  play.style.left = canvas.offsetLeft + canvas.width/2 - 50 + 'px';
+  play.style.padding = '10px 20px';
+  play.style.fontSize = '16px';
+  play.style.cursor = 'pointer';
+  play.style.zIndex = '10';
   play.onclick = function () {
     playing = true;
+    play.remove();
     drawLanes();
     drawRects();
     animate();
