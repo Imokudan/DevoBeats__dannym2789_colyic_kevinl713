@@ -3,19 +3,68 @@ html
   head
     title= title
     style.
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(270deg, #B6FFFE, #48FDFE, #F20BF8, #150390, #1E0C2D);
+        background-size: 600% 600%;
+        animation: neonBackground 20s ease infinite;
+        text-align: center;
+        font-family: sans-serif;
+      }
+
+      nav {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: bold;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
+      }
+
+      @keyframes neonBackground {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
       #canvas-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        height: 70vh;
       }
+
   body
-    a(href="/") Home
+    nav
+      div
+        a(href="/") Home
+        a(href="/songs") Songs
+        a(href="/signout") Sign out
     h1= song
-    h2(id='points')= "Score: 0"
-    h2(id='highscore')= "Highscore: 0"
-    audio(controls='',id='song',hidden)
-      source(src=full,type='audio/mp3')
+    h2(id='points') Score: 0
+    h2(id='highscore') Highscore: 0
+    audio(controls='', id='song', hidden)
+      source(src=full, type='audio/mp3')
     div(id='canvas-container')
-      canvas(id='game', width=1/2, height=1/2, style='border:1px solid #000000;')
+      canvas(id='game', width=800, height=400)
     script(src="/js/game.js")
