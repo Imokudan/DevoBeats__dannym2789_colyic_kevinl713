@@ -10,6 +10,29 @@ html
         background-size: 600% 600%;
         animation: neonBackground 20s ease infinite;
         text-align: center;
+        font-family: sans-serif;
+      }
+
+      nav {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: bold;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
       }
 
       @keyframes neonBackground {
@@ -30,8 +53,13 @@ html
         align-items: center;
         height: 70vh;
       }
+
   body
-    a(href="/") Home
+    nav
+      div
+        a(href="/") Home
+        a(href="/songs") Songs
+        a(href="/signout") Sign out
     h1= song
     h2(id='points') Score: 0
     h2(id='highscore') Highscore: 0

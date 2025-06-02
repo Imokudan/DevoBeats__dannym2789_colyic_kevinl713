@@ -2,7 +2,44 @@ doctype html
 html
   head
     title= title
+    style.
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(270deg, #B6FFFE, #48FDFE, #F20BF8, #150390, #1E0C2D);
+        background-size: 600% 600%;
+        animation: neonBackground 20s ease infinite;
+        text-align: center;
+        font-family: sans-serif;
+      }
+
+      nav {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: bold;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
+      }
   body
+    nav
+      div
+        a(href="/") Home
+        a(href="/songs") Songs
+        a(href="/signout") Sign out
     ul
       each song in songs
         li
