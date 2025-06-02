@@ -20,7 +20,7 @@ app.use('/audioFiles', express.static('audioFiles'));
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/home.html'));
+  res.render('home', {title: 'DevoBeats'});
 });
 
 app.get('/songs', (req,res) => {
