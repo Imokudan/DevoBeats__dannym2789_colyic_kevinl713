@@ -2,24 +2,26 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database(':memory:');
 
 const fetchAll = async (sql, params) => {
-  return new Promise((pass, fail) => {
+  return await new Promise((pass, fail) => {
     db.serialize(() => {
       db.all(sql, params, (err, rows) => {
         if (err) {fail(err);}
         pass(rows);
       });
     });
+    db.close();
   });
 }
 
 const fetchFirst = async (sql, params) => {
-  return new Promise((pass, fail) => {
+  return await new Promise((pass, fail) => {
     db.serialize(() => {
       db.get(sql, params, (err, row) => {
         if (err) {fail(err);}
         pass(row);
       });
     });
+    db.close();
   });
 }
 
@@ -37,7 +39,11 @@ const createUser = async (name, pass) => {
   let state = false;
   db.serialize(() => {
     let rowarray = fetchAll("SELECT id from users where username = ?", name);
-    if (rowarray.length == 0){
+    console.log("Printing out users");
+    for (let i = 0; i < rowarray.length; i++){
+      console.log(rowarray[i]);
+    }
+    if (typeof(rowarray) == undefined){
       db.run("INSERT INTO users (username, password) VALUES (?, ?);", (name, pass));
       console.log("Successfully added user: " + name);
       state = true;
@@ -115,6 +121,3 @@ const setUserScore = async (usernameid, song, score) => {
   db.close();
   return state;
 }
-
-createTables();
-createUser("danny", "password");
