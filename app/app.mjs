@@ -51,10 +51,10 @@ function getBeats() {
   return new Promise((resolve, reject) => {
     let beats = [];
     console.log("Song is currently: " + song);
-    const pythonProcess = spawn('python3', ['-u', 'beats.py', '/home/danny/DevoBeats__dannym2789_colyic_kevinl713/app/audioFiles/' + song], {
+    const pythonProcess = spawn('python3', ['-u', 'beats.py', 'audioFiles/' + song], {
       stdio: 'pipe',
       shell: false,
-      cwd: '/home/danny/DevoBeats__dannym2789_colyic_kevinl713/app'
+      cwd: './'
     });
     pythonProcess.stdout.setEncoding('utf8');
     pythonProcess.stdout.on('data', data => {
