@@ -20,7 +20,12 @@ var virtualTime = 0;
 
 // Server and client functions
 function getBeats() {
-  fetch('/api/beats')
+    fetch('/api/beats', {method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+    // body: JSON.stringify()
+    })
     .then(response => response.json())
     .then(data => {
       console.log('Beats data:', data);
