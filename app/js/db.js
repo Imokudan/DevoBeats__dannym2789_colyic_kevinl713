@@ -1,7 +1,24 @@
+const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('db.db');
+const filepath = "./database.db";
 
-const fetchAll = async (sql, params) => {
+const createDbConnection => () {
+  if (fs.existsSync(filepath)){
+    return new sqlite3.Database(filepath);
+  }
+  else {
+    const db = new sqlite3.Database(filepath, (err) => {
+      if (error) {
+        return console.error(err.message);
+      }
+      createTables(db);
+    });
+    console.log("Connection with SQLite database established");
+    return db;
+  }
+}
+
+const fetchAll = (sql, params) => {
   return await new Promise((pass, fail) => {
     db.serialize(() => {
       db.all(sql, params, (err, rows) => {
@@ -13,7 +30,7 @@ const fetchAll = async (sql, params) => {
   });
 }
 
-const fetchFirst = async (sql, params) => {
+const fetchFirst = (sql, params) => {
   return await new Promise((pass, fail) => {
     db.serialize(() => {
       db.get(sql, params, (err, row) => {
@@ -25,12 +42,12 @@ const fetchFirst = async (sql, params) => {
   });
 }
 
-const createTables = async () => {
+const createTables = (db) => {
   db.serialize(() => {
-    db.run("DROP TABLE IF EXISTS users;");
-    db.run("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE NOT NULL, password TEXT NOT NULL);");
-    db.run("CREATE TABLE IF NOT EXISTS scores (songs TEXT NOT NULL, scores INTEGER DEFAULT 0, id INTEGER NOT NULL);");
-    });
+    db.exec("DROP TABLE IF EXISTS users;");
+    db.exec("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE NOT NULL, password TEXT NOT NULL);");
+    db.exec("CREATE TABLE IF NOT EXISTS scores (songs TEXT NOT NULL, scores INTEGER DEFAULT 0, id INTEGER NOT NULL);");
+  });
     console.log("Tables ready");
   db.close();
 }
@@ -121,3 +138,5 @@ const setUserScore = async (usernameid, song, score) => {
   db.close();
   return state;
 }
+
+module.exports = createDbConnection();
