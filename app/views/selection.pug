@@ -2,10 +2,48 @@ doctype html
 html
   head
     title= title
+    style.
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(90deg,rgba(0, 0, 0, 1) 0%, rgba(59, 21, 112, 1) 82%, rgba(125, 18, 255, 1) 100%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        text-align: center;
+        font-family: sans-serif;
+      }
+
+      nav {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: bold;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
+      }
   body
+    nav
+      div
+        a(href="/") Home
+        a(href="/songs") Songs
+        a(href="/signout") Sign out
     ul
       each song in songs
         li
           form(action="/game" method="POST")
             input(type="hidden" name="song" value=song)
-            button(type="submit") #{song}
+            button(type="submit") #{song.replace(".mp3","")}

@@ -4,8 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="styles.css" rel="stylesheet">
+    <style>
+    body {
+      background-color: rgba(0,0,0,1);
+    }
+    nav {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+    </style>
   </head>
   <body>
-    <h1 class="text-center">Home</h1>
+    <nav>
+      <div>
+        <a href="/">Home</a>
+        <a href="/songs">Songs</a>
+      </div>
+    </nav>
   </body>
 </html>
