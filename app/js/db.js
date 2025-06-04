@@ -150,7 +150,7 @@ const UserToID = async (username) => {
   });
 }
 
-const getSongsList = (folderPath) => {
+const getSongsList = async (folderPath) => {
   return new Promise((resolve, reject) => {
     fs.readdir(folderPath, (err, files) => {
       if (err) {
