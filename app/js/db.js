@@ -150,7 +150,7 @@ const UserToID = async (username) => {
   });
 }
 
-const getSongsList = (folderPath) => {
+const getSongsList = async (folderPath) => {
   return new Promise((resolve, reject) => {
     fs.readdir(folderPath, (err, files) => {
       if (err) {
@@ -165,3 +165,5 @@ const getSongsList = (folderPath) => {
     });
   });
 };
+
+module.exports = {fetchAll, fetchFirst, createTables, createUser, getUser, getPass, getUserAllScores, getUserSongScores, setUserScore, IdToUser, UserToID, getSongsList};
