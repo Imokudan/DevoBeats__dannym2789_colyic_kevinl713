@@ -32,10 +32,10 @@ const createTables = () => {
 
 const createUser = async (name, pass) => {
   let state = false;
-  
+
   try {
     let rowarray = await fetchAll("SELECT id FROM users WHERE username = ?", [name]);
-    
+
     if (!rowarray || rowarray.length === 0) {
       await new Promise((resolve, reject) => {
         db.run("INSERT INTO users (username, password) VALUES (?, ?);", [name, pass], function(err) {
@@ -84,7 +84,7 @@ const getUserAllScores = async (usernameid) => {
 
       let userscores = rows.map(row => row.scores);
       console.log("User: " + usernameid + "'s scores: " + userscores);
-      
+
       resolve(userscores);
     });
   });
@@ -111,7 +111,7 @@ const setUserScore = async (usernameid, song, score) => {
   return new Promise((resolve, reject) => {
     db.run("INSERT INTO scores (id, songs, scores) VALUES (?, ?, ?);", [usernameid, song, score], function(err) {
       if (err) return reject(err);
-      
+
       console.log("Score set for user: " + usernameid);
       resolve(true);
     });

@@ -1,6 +1,7 @@
 import express from 'express';
 import {spawn} from 'node:child_process';
 import fs from 'fs';
+import db from './js/db.js';
 const app = express();
 app.set('view engine', 'pug');
 const port = 3000;
@@ -39,6 +40,12 @@ app.all('/game', (req, res) => {
 
 app.get('/api/beats', (req, res) => {
   getBeats().then(data => {
+    res.json(data);
+  });
+});
+
+app.get('/api/score', (req, res) => {
+  getScore().then(data => {
     res.json(data);
   });
 });

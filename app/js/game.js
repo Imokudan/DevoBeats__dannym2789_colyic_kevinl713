@@ -21,12 +21,7 @@ var virtualTime = 0;
 
 // Server and client functions
 function getBeats() {
-    fetch('/api/beats', {method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-    // body: JSON.stringify()
-    })
+    fetch('/api/beats')
     .then(response => response.json())
     .then(data => {
       console.log('Beats data:', data);
@@ -46,6 +41,14 @@ function sendScore() {
 }
 
 function receiveScore() {
+  fetch('/api/score')
+  .then(response => response.json())
+  .then(data => {
+    console.log('Previous score: ', data);
+  })
+  .catch(err => {
+    console.error('Error fetching score:', err);
+  });
 }
 
 function beat(lane, beat) {
