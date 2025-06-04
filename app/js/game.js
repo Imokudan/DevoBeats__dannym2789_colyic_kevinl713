@@ -4,6 +4,7 @@ canvas.width = window.innerWidth / 2;
 canvas.height = window.innerHeight * 3 / 4;
 var song = document.getElementById("song");
 var score = document.getElementById("points");
+var highScore = document.getElementById("highscore");
 var beats = [];
 var lane1 = [];
 var lane2 = [];
@@ -99,6 +100,9 @@ function animate() {
 
   drawLanes();
   drawRects();
+  score.innerHTML = "Time: " + song.currentTime;
+  highScore.innerHTML = "Fake: " + virtualTime;
+
 
   animationId = requestAnimationFrame(animate);
 }
@@ -121,7 +125,11 @@ function drawRects() {
   ctx.beginPath();
   for (let i = 0; i < beats.length; i++) {
     if (beats[i].beat - virtualTime <= 5 && beats[i].beat - virtualTime > -1) {
-      ctx.fillStyle = beats[i].clicked ? "gray" : "black";
+      ctx.fillStyle = "black";
+      ctx.globalAlpha = 1;
+      if(beats[i].clicked){
+        ctx.globalAlpha = 0.2;
+      }
       ctx.fillRect(
         beats[i].lane * canvas.width / 4,
         canvas.height * (1 - (beats[i].beat - virtualTime) / 3),
@@ -192,7 +200,6 @@ function checkCollision(lane) {
       lane[i].clicked = true;
       points += 1;
       hit = true;
-      score.innerHTML = "Points: " + points;
     }
   }
   if (hit == false) {

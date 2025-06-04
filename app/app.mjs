@@ -39,7 +39,7 @@ app.all('/game', (req, res) => {
 
 app.get('/api/beats', (req, res) => {
   getBeats().then(data => {
-    JSON.stringify(res.json(data));
+    res.json(data);
   });
 });
 
@@ -50,30 +50,16 @@ app.listen(port, () => {
 function getBeats() {
   return new Promise((resolve, reject) => {
     let beats = [];
-    console.log("Song is currently: " + song);
-    const pythonProcess = spawn('python3', ['-u', 'beats.py', 'audioFiles/' + song], {
-      stdio: 'pipe',
-      shell: false,
-      cwd: './'
-    });
-    pythonProcess.stdout.setEncoding('utf8');
+    const pythonProcess = spawn('python3', ['beats.py', 'audioFiles/' + song]);
     pythonProcess.stdout.on('data', data => {
-      console.log("stdout: " + data);
-      data = data.toString();
-      beats.push(data);
+      beats.push(data.toString());
     });
-    pythonProcess.stderr.on('data', data => {
-      console.error('Python Erorr: ' + data.toString());
-    });
-    console.log(beats);
     pythonProcess.on('exit', code => {
       const arr = beats[0].replace(/^"|"$/g, '').split('\n').filter(Boolean).map(Number);
       result = arr;
-      console.log("getBeats ran successfully");
       resolve(arr);
     });
     pythonProcess.on('error', err => {
-      console.log("getBeats failed, error: " + err);
       reject(err);
     });
   });

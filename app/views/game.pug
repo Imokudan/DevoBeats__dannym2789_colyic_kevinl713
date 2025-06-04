@@ -11,13 +11,15 @@ html
         animation: neonBackground 20s ease infinite;
         text-align: center;
         font-family: sans-serif;
+        color: white;
       }
 
       nav {
         background-color: rgba(0, 0, 0, 0.7);
         padding: 10px 20px;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
+        gap: 20px;
         align-items: center;
         position: sticky;
         top: 0;
@@ -27,12 +29,29 @@ html
       nav a {
         color: white;
         text-decoration: none;
-        margin: 0 10px;
         font-weight: bold;
+        padding: 10px;
       }
 
       nav a:hover {
         text-decoration: underline;
+      }
+
+      h1, h2 {
+        margin: 10px;
+      }
+
+      #canvas-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh;
+      }
+
+      canvas {
+        background-color: rgba(0, 0, 0, 0.3);
+        border: 2px solid white;
+        border-radius: 10px;
       }
 
       @keyframes neonBackground {
@@ -47,24 +66,20 @@ html
         }
       }
 
-      #canvas-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 70vh;
-      }
-
   body
     nav
-      div
-        a(href="/") Home
-        a(href="/songs") Songs
-        a(href="/signout") Sign out
-    h1= song
-    h2(id='points') Score: 0
-    h2(id='highscore') Highscore: 0
+      a(href="/") Home
+      a(href="/songs") Songs
+      a(href="/signout") Sign out
+    div
+      h1= song
+      h2(id='points') Score: 0
+      h2(id='highscore') Highscore: 0
+
     audio(controls='', id='song', hidden)
       source(src=full, type='audio/mp3')
+
     div(id='canvas-container')
-      canvas(id='game', width=800, height=400)
+      canvas(id='game')
+
     script(src="/js/game.js")

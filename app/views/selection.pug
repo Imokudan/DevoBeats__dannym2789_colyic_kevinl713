@@ -18,7 +18,8 @@ html
         background-color: rgba(0, 0, 0, 0.7);
         padding: 10px 20px;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start; /* align items to the left */
+        gap: 20px; /* space between links */
         align-items: center;
         position: sticky;
         top: 0;
@@ -28,19 +29,46 @@ html
       nav a {
         color: white;
         text-decoration: none;
-        margin: 0 10px;
         font-weight: bold;
+        padding: 8px 12px;
       }
 
       nav a:hover {
         text-decoration: underline;
       }
+
+      ul {
+        padding: 0;
+        list-style-type: none;
+        margin: 2rem auto;
+        width: fit-content;
+      }
+
+      li {
+        margin: 10px 0;
+      }
+
+      button {
+        background-color: #4b00b5;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #6a00e6;
+      }
+
   body
     nav
-      div
-        a(href="/") Home
-        a(href="/songs") Songs
-        a(href="/signout") Sign out
+      a(href="/") Home
+      a(href="/songs") Songs
+      a(href="/signout") Sign out
+
     ul
       each song in songs
         li
