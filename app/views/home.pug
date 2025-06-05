@@ -3,75 +3,149 @@ html
   head
     title DevoBeats
     style.
+      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
       body {
         margin: 0;
         padding: 0;
         min-height: 100vh;
-        background: #1a1a1a;
-        font-family: 'Arial', sans-serif;
+        background: #0f0026;
+        font-family: 'Orbitron', Arial, sans-serif;
         display: flex;
         flex-direction: column;
         align-items: center;
+        overflow-x: hidden;
       }
 
       nav {
-        background-color: rgba(0, 0, 0, 0.8);
-        padding: 10px 20px;
+        background: rgba(10, 0, 32, 0.95);
+        box-shadow: 0 2px 24px #7a00ff55;
+        padding: 14px 30px;
         display: flex;
-        justify-content: flex-start; /* <-- Move items to the left */
-        gap: 20px;
+        justify-content: space-between;
+        align-items: center;
         position: sticky;
         top: 0;
         z-index: 1000;
-        width: 100%;
+        width: 100vw;
       }
-
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
       nav a {
-        color: white;
+        color: #fff;
+        text-shadow:
+          0 0 5px #f0f,
+          0 0 10px #0ff,
+          0 0 15px #0ff;
         text-decoration: none;
         font-weight: bold;
-        padding: 10px 15px;
-        border-radius: 5px;
-        transition: background 0.3s ease;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+        transition: background 0.3s, color 0.3s, text-shadow 0.3s;
       }
-
       nav a:hover {
-        background-color: #333;
+        background: #1a0033;
+        color: #0ff;
+        text-shadow:
+          0 0 10px #0ff,
+          0 0 20px #ff00cc;
       }
 
       .neon-card {
-        margin-top: 4rem;
-        background: #1a1a1a;
-        padding: 2rem;
-        border-radius: 15px;
+        margin-top: 5rem;
+        background: rgba(25, 0, 50, 0.96);
+        padding: 2.5rem 3.5rem 2.5rem 3.5rem;
+        border-radius: 20px;
         box-shadow:
-          0 0 10px #ff00ff,
-          0 0 20px #ff00ff,
-          0 0 40px #ff00ff,
-          inset 0 0 10px #ff00ff,
-          inset 0 0 20px #ff00ff;
+          0 0 24px #ff00ffcc,
+          0 0 80px #00ffeeb0,
+          0 0 8px #fff4;
         color: #fff;
         text-align: center;
         transition: box-shadow 0.3s ease;
+        position: relative;
+        min-width: 380px;
+        max-width: 90vw;
+        z-index: 1;
       }
-
       .neon-card:hover {
         box-shadow:
-          0 0 20px #00ffff,
-          0 0 40px #00ffff,
-          0 0 80px #00ffff,
-          inset 0 0 20px #00ffff,
-          inset 0 0 40px #00ffff;
+          0 0 36px #00ffffcc,
+          0 0 100px #ff00ffcc,
+          0 0 16px #fff6;
       }
       h1 {
-        color: #ff00ff
+        margin-bottom: 0.7em;
+        color: #fff;
+        font-size: 2.7rem;
+        letter-spacing: 3px;
+        text-shadow:
+          0 0 10px #ff00ffcc,
+          0 0 30px #00ffeeb0,
+          0 0 20px #fff6;
+      }
+      .music-notes {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 0;
+        overflow: visible;
+      }
+      .music-note {
+        position: absolute;
+        font-size: 2.5rem;
+        color: #fff;
+        opacity: 0.65;
+        text-shadow:
+          0 0 10px #0ff,
+          0 0 20px #ff00ff;
+        animation: float-notes 8s linear infinite;
+      }
+      .music-note.n1 { left: 10vw; top: 74vh; font-size: 3rem; color: #0ff; animation-delay: 0s; }
+      .music-note.n2 { left: 25vw; top: 60vh; font-size: 2.1rem; color: #ff00ff; animation-delay: 2s; }
+      .music-note.n3 { left: 60vw; top: 80vh; font-size: 2.8rem; color: #fff; animation-delay: 3s; }
+      .music-note.n4 { left: 75vw; top: 65vh; font-size: 2.4rem; color: #0ff; animation-delay: 1s; }
+      .music-note.n5 { left: 50vw; top: 85vh; font-size: 2.7rem; color: #ff00ff; animation-delay: 4s; }
+      .music-note.n6 { left: 85vw; top: 90vh; font-size: 2rem; color: #0ff; animation-delay: 5s; }
+      @keyframes float-notes {
+        0% { transform: translateY(0) scale(1) rotate(0deg);}
+        80% {opacity: 0.8;}
+        100% { transform: translateY(-85vh) scale(1.1) rotate(15deg); opacity: 0; }
       }
 
   body
     nav
-      a(href="/") Devobeats
-      a(href="/songs") Songs
-      a(href="/signin") Sign In
-      a(href="/signout") Sign out
+      .nav-left
+        a(href="/") Devobeats
+      .nav-right
+        a(href="/songs") Songs
+        a(href="/signin") Sign In
+        a(href="/signout") Sign out
+
+    .music-notes
+      span.music-note.n1 &#119070;
+      span.music-note.n2 &#9835;
+      span.music-note.n3 &#119070;
+      span.music-note.n4 &#9833;
+      span.music-note.n5 &#9839;
+      span.music-note.n6 &#119070;
+
     div.neon-card
+      img(src="/beats.gif" alt="Neon Music Animation")
       h1 Welcome to DevoBeats
+      p(style="font-size:1.2rem; color:#fff; text-shadow:0 0 5px #0ff, 0 0 12px #ff00ff;")
+        | Start your rhythm journey.<br>
+        | Choose a song and play the beat!
