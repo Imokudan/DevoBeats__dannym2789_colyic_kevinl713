@@ -109,9 +109,13 @@ app.get('/api/score', (req, res) => {
     .then(data => res.json(data))
 });
 
-app.post('/api/getScore', (req, res) => {
+app.post('/api/getScore', async (req, res) => {
   const { score } = req.body;
-  db.setUserScore(req.session.userId,req.session.song,score);
+  const oldScore = await db.getUserSongScores(req.session.userId, req.session.song);
+  if (score > oldScore) {
+    await db.setUserScore(req.session.userId, req.session.song, score);
+  }
+  res.end();
 });
 
 app.get('/logout', (req, res) => {

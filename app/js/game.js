@@ -164,8 +164,16 @@ function drawRects() {
 function startScreen() {
   const play = document.createElement('button');
   ctx.beginPath();
-  ctx.fillStyle = 'white';
+  ctx.fillStyle = '#1a0033';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.save();
+  ctx.font = "2rem Orbitron, Arial, sans-serif";
+  ctx.fillStyle = "#fff";
+  ctx.textAlign = "center";
+  ctx.shadowColor = "#0ff";
+  ctx.shadowBlur = 10;
+  ctx.fillText("Press A S D F in time with the music!", canvas.width / 2, canvas.height / 2 - 80);
+  ctx.restore();
   play.textContent = 'Play';
   play.style.position = 'absolute';
   play.style.top = canvas.offsetTop + canvas.height / 2 - 25 + 'px';
@@ -235,6 +243,11 @@ function restart() {
   for (let beat of beats) {
     beat.clicked = false;
   }
+  song.pause();
+  song.currentTime = 0;
+  playing = false;
+  points = 0;
+  score.innerHTML = "Score: 0";
   startScreen();
 }
 
@@ -246,6 +259,7 @@ function game() {
   document.addEventListener("keydown", keyPress);
   song.addEventListener('ended', function() {
     console.log("Song ended!");
+    cancelAnimationFrame(animationId);
     sendScore();
     restart();
   });
