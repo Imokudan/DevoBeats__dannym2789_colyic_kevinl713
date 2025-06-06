@@ -23,11 +23,10 @@ const fetchFirst = (sql, params) => {
 
 const createTables = () => {
   db.serialize(() => {
-    db.run("DROP TABLE IF EXISTS users;");
-    db.run("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE NOT NULL, password TEXT NOT NULL);");
+    db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE NOT NULL, password TEXT NOT NULL);");
     db.run("CREATE TABLE IF NOT EXISTS scores (songs TEXT NOT NULL, scores INTEGER DEFAULT 0, id INTEGER NOT NULL);");
-    });
-    console.log("Tables ready");
+  });
+  console.log("Tables ready");
 };
 
 const createUser = async (name, pass) => {

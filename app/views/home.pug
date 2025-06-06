@@ -39,7 +39,7 @@ html
         align-items: center;
         gap: 20px;
       }
-      nav a {
+      nav a, .nav-hi {
         color: #fff;
         text-shadow:
           0 0 5px #f0f,
@@ -52,6 +52,7 @@ html
         font-size: 1.1rem;
         letter-spacing: 2px;
         transition: background 0.3s, color 0.3s, text-shadow 0.3s;
+        display: inline-block;
       }
       nav a:hover {
         background: #1a0033;
@@ -59,6 +60,12 @@ html
         text-shadow:
           0 0 10px #0ff,
           0 0 20px #ff00cc;
+      }
+      .nav-hi {
+        background: transparent;
+        pointer-events: none;
+        cursor: default;
+        margin-right: 0;
       }
 
       .neon-card {
@@ -131,9 +138,14 @@ html
       .nav-left
         a(href="/") Devobeats
       .nav-right
-        a(href="/songs") Songs
-        a(href="/signin") Sign In
-        a(href="/signout") Sign out
+        if username
+          span.nav-hi Hi, #{username}
+          a(href="/songs") Songs
+          a(href="/logout") Logout
+        else
+          a(href="/songs") Songs
+          a(href="/login") Login
+          a(href="/register") Register
 
     .music-notes
       span.music-note.n1 &#119070;

@@ -38,12 +38,34 @@ function getBeats() {
 }
 
 function sendScore() {
+  fetch('/api/getScore', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ score: points })
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Score submitted:', data);
+    if (data.highScore !== undefined) {
+      highScore.innerHTML = "Highscore: " + data.highScore;
+    }
+  })
+  .catch(err => {
+    console.error('Error sending score:', err);
+  });
 }
 
 function receiveScore() {
   fetch('/api/score')
   .then(response => response.json())
   .then(data => {
+    if(data == []){
+      highScore.innerHTML = "Highscore: 0";
+    } else{
+      highScore.innerHTML = "Highscore: " + data[0][1];
+    }
     console.log('Previous score: ', data);
   })
   .catch(err => {
@@ -103,10 +125,6 @@ function animate() {
 
   drawLanes();
   drawRects();
-  score.innerHTML = "Time: " + song.currentTime;
-  highScore.innerHTML = "Fake: " + virtualTime;
-
-
   animationId = requestAnimationFrame(animate);
 }
 
@@ -202,28 +220,35 @@ function checkCollision(lane) {
     ) {
       lane[i].clicked = true;
       points += 1;
+      score.innerHTML = "Score: " + points;
       hit = true;
     }
   }
   if (hit == false) {
     cancelAnimationFrame(animationId);
+    sendScore();
+    restart();
   }
 }
 
 function restart() {
-  if (beats[beats.length - 1].clicked == true) {
-    sendScore();
-  }
   for (let beat of beats) {
     beat.clicked = false;
   }
+  startScreen();
 }
 
 // Main Function
 function game() {
+  receiveScore();
   getBeats();
   startScreen();
   document.addEventListener("keydown", keyPress);
+  song.addEventListener('ended', function() {
+    console.log("Song ended!");
+    sendScore();
+    restart();
+  });
 }
 
 game();
